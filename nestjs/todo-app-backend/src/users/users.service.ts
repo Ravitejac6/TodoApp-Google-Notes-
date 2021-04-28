@@ -1,13 +1,20 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/models/user';
 import { UserDocument } from 'src/models/user.schema';
+import * as bcrypt from 'bcrypt';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel('Users') private readonly userModel: Model<UserDocument>,
+    private readonly authService: AuthService,
   ) {}
   async createUser(userName, userEmail, userPassword): Promise<String> {
     const newUser = new this.userModel({
@@ -24,6 +31,7 @@ export class UsersService {
     return {
       username: user.username,
       email: user.email,
+      password: user.password,
     };
   }
 
@@ -35,5 +43,17 @@ export class UsersService {
       throw new NotFoundException('User cannot found');
     }
     return user;
+  }
+
+  async login(userEmail: string, userPassword: string) {
+    const user = await this.getUser(userEmail);
+    const hashedPassword = user.password.valueOf();
+    if (!user) {
+      throw new BadRequestException('Wrong Credentials');
+    }
+    if (!(await bcrypt.compare(userPassword, hashedPassword))) {
+      throw new BadRequestException('Wrong Password');
+    }
+    return this.authService.generateJWT(user);
   }
 }

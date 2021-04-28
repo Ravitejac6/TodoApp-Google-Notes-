@@ -17,6 +17,14 @@ export class UsersController {
     return res;
   }
 
+  @Post('login')
+  async login(
+    @Body('email') userEmail: string,
+    @Body('password') userPassword: string,
+  ) {
+    return this.usersService.login(userEmail, userPassword);
+  }
+
   @Get(':email')
   async getUser(@Param('email') userEmail: string) {
     const user = await this.usersService.getUser(userEmail);
