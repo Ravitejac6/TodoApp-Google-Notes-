@@ -9,11 +9,11 @@ export class UsersService {
   constructor(
     @InjectModel('Users') private readonly userModel: Model<UserDocument>,
   ) {}
-  async createUser(user: User): Promise<String> {
+  async createUser(userName, userEmail, userPassword): Promise<String> {
     const newUser = new this.userModel({
-      username: user.username,
-      email: user.email,
-      password: user.password,
+      username: userName,
+      email: userEmail,
+      password: userPassword,
     });
     const res = await newUser.save();
     return res.email;
@@ -24,7 +24,6 @@ export class UsersService {
     return {
       username: user.username,
       email: user.email,
-      password: user.password,
     };
   }
 

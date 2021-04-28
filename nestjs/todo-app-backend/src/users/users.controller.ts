@@ -1,13 +1,19 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { User } from 'src/models/user';
 import { UsersService } from './users.service';
+import * as bcrypt from 'bcrypt';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Post('create')
   async register(@Body() user: User) {
-    const res = await this.usersService.createUser(user);
+    const hashedPassword = await bcrypt.hash(user.password, 12);
+    const res = await this.usersService.createUser(
+      user.username,
+      user.email,
+      hashedPassword,
+    );
     return res;
   }
 
