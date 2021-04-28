@@ -6,7 +6,7 @@ import { User } from 'src/models/user';
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  generateJWT(user: User) {
+  generateJWT(user: User): Promise<String> {
     return this.jwtService.signAsync({ user });
   }
 }

@@ -56,4 +56,13 @@ export class UsersService {
     }
     return this.authService.generateJWT(user);
   }
+
+  async getUsers() {
+    const users = await this.userModel.find().exec();
+    users.map((user) => ({
+      username: user.username,
+      email: user.email,
+    }));
+    return users;
+  }
 }

@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from 'src/models/user';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -22,12 +31,20 @@ export class UsersController {
     @Body('email') userEmail: string,
     @Body('password') userPassword: string,
   ) {
-    return this.usersService.login(userEmail, userPassword);
+    const token = await this.usersService.login(userEmail, userPassword);
+    return { access_token: token };
   }
 
   @Get(':email')
   async getUser(@Param('email') userEmail: string) {
     const user = await this.usersService.getUser(userEmail);
     return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async getUsers(@Req() req) {
+    console.log(req.user);
+    return this.usersService.getUsers();
   }
 }
