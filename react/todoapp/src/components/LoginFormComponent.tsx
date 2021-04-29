@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { UserLoginModel } from "../interfaces/userLoginModel";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../actions/register";
 
 export const LoginFormComponent = () => {
   let initialUserLogin: UserLoginModel = {
@@ -9,6 +11,7 @@ export const LoginFormComponent = () => {
   };
 
   const [userLogin, setUserLogin] = useState<UserLoginModel>(initialUserLogin);
+  const dispatch = useDispatch();
 
   const handleUserLogin = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -21,6 +24,7 @@ export const LoginFormComponent = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(setLogin(userLogin));
     console.log(userLogin);
   };
 

@@ -1,7 +1,14 @@
-import { ThunkAction, Action, createStore } from "@reduxjs/toolkit";
+import {
+  ThunkAction,
+  Action,
+  createStore,
+  combineReducers,
+} from "@reduxjs/toolkit";
 import { registerReducer } from "../reducers/registerReducer";
+import { loginReducer } from "../reducers/loginReducer";
 
-export const store = createStore(registerReducer);
+const reducers = combineReducers({ registerReducer, loginReducer });
+export const store = createStore(reducers);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<

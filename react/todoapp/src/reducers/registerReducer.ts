@@ -27,5 +27,7 @@ export const registerReducer = (
     case "REGISTER_USER": {
       return setRegisterFormReducer(state, action);
     }
+    default:
+      return state;
   }
 };
