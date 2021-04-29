@@ -1,47 +1,42 @@
-import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { UserRegisterModel } from "../interfaces/userRegisterModel";
+import { Button, TextField } from "@material-ui/core";
+import { UserLoginModel } from "../interfaces/userLoginModel";
 
-export const RegisterFormComponent = () => {
-  let initialUserRegister: UserRegisterModel = {
-    userName: "",
+export const LoginFormComponent = () => {
+  let initialUserLogin: UserLoginModel = {
     email: "",
     password: "",
   };
-  const [userRegister, setUserRegister] = useState<UserRegisterModel>(
-    initialUserRegister
-  );
-  const handleUserRegister = (
+
+  const [userLogin, setUserLogin] = useState<UserLoginModel>(initialUserLogin);
+
+  const handleUserLogin = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    setUserRegister({
-      ...userRegister,
+    setUserLogin({
+      ...userLogin,
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(userRegister);
+    console.log(userLogin);
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <TextField
-          name="userName"
-          label="UserName"
-          onChange={(e) => handleUserRegister(e)}
-        />
-        <TextField
           name="email"
           label="Email"
-          onChange={(e) => handleUserRegister(e)}
+          onChange={(e) => handleUserLogin(e)}
         />
         <TextField
           name="password"
           label="Password"
           type="password"
-          onChange={(e) => handleUserRegister(e)}
+          onChange={(e) => handleUserLogin(e)}
         />
         <Button variant="contained" color="primary" type="submit">
           Submit
