@@ -2,6 +2,8 @@ import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { UserRegisterModel } from "../interfaces/userRegisterModel";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setRegister } from "../actions/register";
 
 export const RegisterFormComponent = () => {
   let initialUserRegister: UserRegisterModel = {
@@ -14,6 +16,7 @@ export const RegisterFormComponent = () => {
   );
 
   const history = useHistory();
+  const dispatch = useDispatch();
   const handleUserRegister = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -26,6 +29,7 @@ export const RegisterFormComponent = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(userRegister);
+    dispatch(setRegister(userRegister));
     history.push("/users/login");
   };
   return (
