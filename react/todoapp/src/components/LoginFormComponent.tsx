@@ -30,7 +30,7 @@ export const LoginFormComponent = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <TextField
           name="email"
           label="Email"

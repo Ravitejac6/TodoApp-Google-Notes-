@@ -34,7 +34,7 @@ export const RegisterFormComponent = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <TextField
           name="userName"
           label="UserName"
