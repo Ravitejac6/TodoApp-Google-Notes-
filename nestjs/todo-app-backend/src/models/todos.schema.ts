@@ -3,14 +3,17 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { UserType } from './user.schema';
 
+export type TodosDocument = Document & TodosType;
 @Schema()
 export class TodosType {
   @Prop()
   id: String;
   @Prop()
-  name: String;
+  title: String;
   @Prop()
   description: String;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'UserType' })
-  userId: UserType;
+  userId: String;
 }
+
+export const TodoSchema = SchemaFactory.createForClass(TodosType);

@@ -11,10 +11,15 @@ import { User } from 'src/models/create-user.dto';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { TodoDto } from 'src/models/create-todo.dto';
+import { TodosService } from 'src/todos/todos.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly todosService: TodosService,
+  ) {}
   @Post('create')
   async register(@Body() user: User) {
     const hashedPassword = await bcrypt.hash(user.password, 12);
@@ -46,5 +51,13 @@ export class UsersController {
   async getUsers(@Req() req) {
     console.log(req.user);
     return this.usersService.getUsers();
+  }
+
+  @Post('createTodo')
+  async createTodo(@Body() todo: TodoDto) {
+    const user = await this.usersService.findUser('ravi@gmail.com');
+    console.log(user._id);
+    const res = await this.todosService.createTodo(todo, user._id);
+    console.log('UserId' + res);
   }
 }

@@ -1,5 +1,6 @@
 import { SetRegisterAction } from "../actions/actionTypes/registerAction";
 import { UserRegisterModel } from "../interfaces/userRegisterModel";
+import axios from "axios";
 
 const intialUserRegister: UserRegisterModel = {
   userName: "",
@@ -7,11 +8,15 @@ const intialUserRegister: UserRegisterModel = {
   password: "",
 };
 
+const postRequestData = (data: UserRegisterModel) => {
+  axios.post("/users/create", data);
+};
 const setRegisterFormReducer = (
   state: UserRegisterModel,
   action: SetRegisterAction
 ) => {
   console.log(action.payload);
+  postRequestData(action.payload);
   return {
     ...state,
     userName: action.payload.userName,

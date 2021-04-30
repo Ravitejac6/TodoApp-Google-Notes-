@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardContent, Button, TextField } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,11 @@ export const TodoFormComponent = () => {
     e.preventDefault();
     console.log(title);
     console.log(notes);
+    axios.post("/users/createTodo", {
+      id: "123",
+      title: title,
+      description: notes,
+    });
   };
 
   return (
