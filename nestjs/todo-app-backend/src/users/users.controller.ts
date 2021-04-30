@@ -7,7 +7,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { User } from 'src/models/user';
+import { User } from 'src/models/create-user.dto';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
