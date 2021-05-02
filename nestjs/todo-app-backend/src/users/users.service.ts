@@ -18,7 +18,7 @@ export class UsersService {
   ) {}
   async createUser(userName, userEmail, userPassword): Promise<String> {
     const newUser = new this.userModel({
-      username: userName,
+      userName: userName,
       email: userEmail,
       password: userPassword,
     });
@@ -29,7 +29,7 @@ export class UsersService {
   async getUser(userEmail: string) {
     const user = await this.findUser(userEmail);
     return {
-      username: user.username,
+      userName: user.userName,
       email: user.email,
       password: user.password,
     };
@@ -60,7 +60,7 @@ export class UsersService {
   async getUsers() {
     const users = await this.userModel.find().exec();
     users.map((user) => ({
-      username: user.username,
+      userName: user.userName,
       email: user.email,
     }));
     return users;

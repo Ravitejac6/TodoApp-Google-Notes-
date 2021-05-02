@@ -22,8 +22,9 @@ export class TodosService {
     return res.userId;
   }
 
-  async getAllTodos() {
-    const todos = await this.todosModel.find().exec();
+  async getAllTodos(userId: String) {
+    const todos = await this.todosModel.find({ userId: userId }).exec();
+    console.log(todos);
     todos.map((todo) => ({
       id: todo.id,
       title: todo.title,

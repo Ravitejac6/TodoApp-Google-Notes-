@@ -12,7 +12,7 @@ export class TodosType {
   title: String;
   @Prop()
   description: String;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'UserType' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Users' })
   userId: String;
 }
 

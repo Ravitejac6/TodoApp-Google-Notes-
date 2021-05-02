@@ -24,7 +24,7 @@ export class UsersController {
   async register(@Body() user: User) {
     const hashedPassword = await bcrypt.hash(user.password, 12);
     const res = await this.usersService.createUser(
-      user.username,
+      user.userName,
       user.email,
       hashedPassword,
     );
@@ -59,5 +59,13 @@ export class UsersController {
     console.log(user._id);
     const res = await this.todosService.createTodo(todo, user._id);
     console.log('UserId' + res);
+  }
+
+  @Get('getTodos/:email')
+  async getTodos(@Param('email') userEmail: string) {
+    const user = await this.usersService.findUser('ravi@gmail.com');
+    console.log(user._id);
+    const res = await this.todosService.getAllTodos(user._id);
+    return res;
   }
 }
