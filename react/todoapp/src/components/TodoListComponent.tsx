@@ -11,19 +11,17 @@ export const TodoListComponent = () => {
       let temp_arr: any[] = res.data;
       temp_arr.map((todo) => {
         todoArray.push({
-          id: todo.id,
+          id: todo._id,
           description: todo.description,
           title: todo.title,
         });
       });
-      console.log(todoArray);
       setTodosList(todoArray);
     });
   }, []);
   return (
     <div>
       <h4>TodoList Component</h4>
-      {console.log(todosList)}
       {todosList.map((todo) => {
         return <TodoItemComponent key={todo.title.toString()} todo={todo} />;
       })}

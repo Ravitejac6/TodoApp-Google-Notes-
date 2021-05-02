@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent, Button, TextField } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
+import "../App.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,8 +13,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       width: "40%",
     },
-    label: {
-      marginBottom: "5%",
+    underline: {
+      "&&&:before": {
+        borderBottom: "none",
+      },
+      "&&:after": {
+        borderBottom: "none",
+      },
     },
   })
 );
@@ -53,12 +59,12 @@ export const TodoFormComponent = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
-              className={classes.label}
               name="title"
               label="Title"
               value={title}
               fullWidth={true}
               onChange={(e) => handleTitleChange(e)}
+              InputProps={{ classes }}
             />
             <TextField
               name="description"
@@ -67,6 +73,7 @@ export const TodoFormComponent = () => {
               value={notes}
               fullWidth={true}
               multiline={true}
+              InputProps={{ classes }}
               onChange={(e) => handleNotesChange(e)}
             />
             <Button type="submit" variant="contained" color="primary">

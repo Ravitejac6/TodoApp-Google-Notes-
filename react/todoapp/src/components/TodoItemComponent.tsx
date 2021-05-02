@@ -12,8 +12,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       width: "40%",
     },
-    label: {
-      marginBottom: "5%",
+    underline: {
+      "&&&:before": {
+        borderBottom: "none",
+      },
+      "&&:after": {
+        borderBottom: "none",
+      },
     },
   })
 );
@@ -22,11 +27,6 @@ interface Props {
   todo: Todo;
 }
 export const TodoItemComponent: FunctionComponent<Props> = (props) => {
-  const todo: Todo = {
-    id: "1234",
-    title: "Food",
-    description: "Paneer",
-  };
   const classes = useStyles();
   const [title, setTitle] = useState<String>("");
   const [notes, setNotes] = useState<String>("");
@@ -46,20 +46,21 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
       <Card className={classes.root}>
         <CardContent>
           <TextField
-            className={classes.label}
             name="title"
             label="Title"
-            value={todo.title}
+            value={props.todo.title}
             fullWidth={true}
+            InputProps={{ classes }}
             onChange={(e) => handleTitleChange(e)}
           />
           <TextField
             name="description"
             label="Notes"
             rows={5}
-            value={todo.description}
+            value={props.todo.description}
             fullWidth={true}
             multiline={true}
+            InputProps={{ classes }}
             onChange={(e) => handleNotesChange(e)}
           />
           <Button variant="outlined" color="secondary">
