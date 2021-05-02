@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   todo: Todo;
+  removeTodo: (todoId: String) => void;
 }
 export const TodoItemComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
@@ -41,6 +42,10 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     setNotes(e.currentTarget.value);
+  };
+
+  const handleDeleteTodo = () => {
+    props.removeTodo(props.todo.id);
   };
   return (
     <div>
@@ -64,7 +69,11 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             InputProps={{ classes }}
             onChange={(e) => handleNotesChange(e)}
           />
-          <Button variant="outlined" color="secondary">
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleDeleteTodo}
+          >
             Delete
           </Button>
         </CardContent>

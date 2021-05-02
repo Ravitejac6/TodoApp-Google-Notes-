@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -67,5 +68,10 @@ export class UsersController {
     console.log(user._id);
     const res = await this.todosService.getAllTodos(user._id);
     return res;
+  }
+
+  @Delete(':id')
+  async deleteTodo(@Param('id') todoId: string) {
+    return this.todosService.removeTodo(todoId);
   }
 }

@@ -30,6 +30,10 @@ export const TodoListComponent = () => {
       setTodosList(todoArray);
     });
   }, []);
+
+  const removeTodo = (todoId: String) => {
+    axios.delete("/users/" + todoId).then((res) => console.log(res.data));
+  };
   return (
     <div>
       <h4>TodoList Component</h4>
@@ -38,7 +42,7 @@ export const TodoListComponent = () => {
           {todosList.map((todo) => {
             return (
               <Grid item xs key={todo.id.toString()}>
-                <TodoItemComponent todo={todo} />
+                <TodoItemComponent todo={todo} removeTodo={removeTodo} />
               </Grid>
             );
           })}

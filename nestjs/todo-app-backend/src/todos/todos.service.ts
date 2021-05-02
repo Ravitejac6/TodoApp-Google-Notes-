@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { TodoDto } from 'src/models/create-todo.dto';
@@ -32,5 +32,13 @@ export class TodosService {
       userId: todo.userId,
     }));
     return todos;
+  }
+
+  async removeTodo(todoId: String) {
+    const res = await this.todosModel.deleteOne({ _id: todoId }).exec();
+    if (res.n === 0) {
+      throw new NotFoundException('Record not found');
+    }
+    return res.deletedCount;
   }
 }
