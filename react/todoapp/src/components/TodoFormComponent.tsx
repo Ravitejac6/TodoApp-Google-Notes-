@@ -42,7 +42,6 @@ export const TodoFormComponent = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     console.log(title);
     console.log(notes);
     axios.post("/users/createTodo", {
@@ -50,6 +49,9 @@ export const TodoFormComponent = () => {
       title: title,
       description: notes,
     });
+    setTitle("");
+    setNotes("");
+    e.preventDefault();
   };
 
   return (
