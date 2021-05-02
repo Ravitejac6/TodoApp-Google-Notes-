@@ -1,17 +1,32 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Todo } from "../interfaces/todo";
 import { TodoItemComponent } from "./TodoItemComponent";
 
 export const TodoListComponent = () => {
-  let todoArray: Todo[] = [];
+  const [todosList, setTodosList] = useState<Todo[]>([]);
   useEffect(() => {
-    axios.get("/users/getTodos").then((res) => console.log(res.data));
-  });
+    let todoArray: Todo[] = [];
+    axios.get("/users/getTodos/ravi@gmail.com").then((res) => {
+      let temp_arr: any[] = res.data;
+      temp_arr.map((todo) => {
+        todoArray.push({
+          id: todo.id,
+          description: todo.description,
+          title: todo.title,
+        });
+      });
+      console.log(todoArray);
+      setTodosList(todoArray);
+    });
+  }, []);
   return (
     <div>
       <h4>TodoList Component</h4>
-      <TodoItemComponent />
+      {console.log(todosList)}
+      {todosList.map((todo) => {
+        return <TodoItemComponent key={todo.title.toString()} todo={todo} />;
+      })}
     </div>
   );
 };

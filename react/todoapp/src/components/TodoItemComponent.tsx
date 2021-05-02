@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Card, CardContent, TextField, Button } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Todo } from "../interfaces/todo";
@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const TodoItemComponent = () => {
+interface Props {
+  todo: Todo;
+}
+export const TodoItemComponent: FunctionComponent<Props> = (props) => {
   const todo: Todo = {
     id: "1234",
     title: "Food",
