@@ -49,10 +49,12 @@ export class UsersService {
     const user = await this.getUser(userEmail);
     const hashedPassword = user.password.valueOf();
     if (!user) {
-      throw new BadRequestException('Wrong Credentials');
+      //throw new BadRequestException('Wrong Credentials');
+      return { msg: 'Wrong Password' };
     }
     if (!(await bcrypt.compare(userPassword, hashedPassword))) {
-      throw new BadRequestException('Wrong Password');
+      //throw new BadRequestException('Wrong Password');
+      return { msg: 'Wrong Password' };
     }
     return this.authService.generateJWT(user);
   }

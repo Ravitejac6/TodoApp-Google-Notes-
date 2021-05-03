@@ -6,7 +6,7 @@ const intialUserLogin: UserLoginModel = {
   email: "",
   password: "",
 };
-
+export let errorMsg = false;
 const postLoginData = (userData: UserLoginModel) => {
   axios
     .post("/users/login", {
@@ -15,6 +15,10 @@ const postLoginData = (userData: UserLoginModel) => {
     })
     .then((res) => {
       console.log(res.data);
+      if (res.data.msg === "Wrong Credentials") {
+        errorMsg = true;
+      }
+      console.log(errorMsg);
     })
     .catch((err) => {
       console.log(err);

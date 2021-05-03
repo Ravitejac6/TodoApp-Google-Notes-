@@ -11,7 +11,10 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../actions/register";
 import { useHistory } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -60,11 +63,20 @@ export const LoginFormComponent = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(setLogin(userLogin));
     setTimeout(() => {
       history.push("/users/view");
     }, 1000);
-    e.preventDefault();
+    toastSuccess();
+  };
+
+  const toastSuccess = () => {
+    toast.success("Successfully Logged In", { autoClose: 3000 });
+  };
+
+  const toastWarning = () => {
+    toast.warning("Wrong Credentials", { autoClose: 3000 });
   };
 
   return (
@@ -88,6 +100,7 @@ export const LoginFormComponent = () => {
               label="Email"
               onChange={(e) => handleUserLogin(e)}
               className={classes.textField}
+              required={true}
             />
             <TextField
               name="password"
@@ -95,6 +108,7 @@ export const LoginFormComponent = () => {
               type="password"
               className={classes.textField}
               onChange={(e) => handleUserLogin(e)}
+              required={true}
             />
             <Button
               variant="contained"

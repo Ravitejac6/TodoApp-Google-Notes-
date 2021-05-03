@@ -42,6 +42,9 @@ export class UsersController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const jwt_token = await this.usersService.login(userEmail, userPassword);
+    if (!(typeof jwt_token == 'string')) {
+      return { msg: 'Wrong Credentials' };
+    }
     response.cookie('jwt', jwt_token, { httpOnly: true });
     return { access_token: jwt_token, message: 'Sucess' };
   }

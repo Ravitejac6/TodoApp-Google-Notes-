@@ -11,6 +11,10 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setRegister } from "../actions/register";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,9 +68,14 @@ export const RegisterFormComponent = () => {
     e.preventDefault();
     console.log(userRegister);
     dispatch(setRegister(userRegister));
+    toastSuccess();
     setTimeout(() => {
       history.push("/users/login");
     }, 500);
+  };
+
+  const toastSuccess = () => {
+    toast.success("Successfully Logged In", { autoClose: 3000 });
   };
   return (
     <div>
@@ -89,12 +98,14 @@ export const RegisterFormComponent = () => {
               label="UserName"
               onChange={(e) => handleUserRegister(e)}
               className={classes.textField}
+              required={true}
             />
             <TextField
               name="email"
               label="Email"
               onChange={(e) => handleUserRegister(e)}
               className={classes.textField}
+              required={true}
             />
             <TextField
               name="password"
@@ -102,6 +113,7 @@ export const RegisterFormComponent = () => {
               type="password"
               onChange={(e) => handleUserRegister(e)}
               className={classes.textField}
+              required={true}
             />
             <Button
               variant="contained"
