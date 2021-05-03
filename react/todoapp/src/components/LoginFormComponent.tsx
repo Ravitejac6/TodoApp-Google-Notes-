@@ -3,6 +3,7 @@ import { Button, TextField } from "@material-ui/core";
 import { UserLoginModel } from "../interfaces/userLoginModel";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../actions/register";
+import { useHistory } from "react-router-dom";
 
 export const LoginFormComponent = () => {
   let initialUserLogin: UserLoginModel = {
@@ -12,6 +13,7 @@ export const LoginFormComponent = () => {
 
   const [userLogin, setUserLogin] = useState<UserLoginModel>(initialUserLogin);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleUserLogin = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -25,6 +27,7 @@ export const LoginFormComponent = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setLogin(userLogin));
+    history.push("/users/view");
     console.log(userLogin);
   };
 
