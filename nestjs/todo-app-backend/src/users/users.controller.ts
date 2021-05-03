@@ -53,12 +53,12 @@ export class UsersController {
       const cookie = request.cookies['jwt'];
       const data = await this.usersService.getVerifyUser(cookie);
       if (!data) {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('User not authorized');
       }
       const { password, ...res } = data.user;
       return res;
     } catch (e) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('User not authorized');
     }
   }
 

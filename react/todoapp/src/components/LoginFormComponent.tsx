@@ -1,12 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { Button, TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import { Button, TextField, Card, CardContent } from "@material-ui/core";
 import { UserLoginModel } from "../interfaces/userLoginModel";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../actions/register";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "40%",
+      margin: "30px",
+      marginLeft: "100px",
+    },
+    textField: {
+      margin: theme.spacing(1),
+      width: "50ch",
+    },
+    card: {
+      width: "60%",
+      height: "25%",
+      marginLeft: "100px",
+    },
+    button: {
+      alignItems: "center",
+      marginLeft: "150px",
+      marginTop: "20px",
+    },
+  })
+);
 
 export const LoginFormComponent = () => {
+  const classes = useStyles();
   let initialUserLogin: UserLoginModel = {
     email: "",
     password: "",
@@ -35,22 +60,37 @@ export const LoginFormComponent = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} autoComplete="off">
-        <TextField
-          name="email"
-          label="Email"
-          onChange={(e) => handleUserLogin(e)}
-        />
-        <TextField
-          name="password"
-          label="Password"
-          type="password"
-          onChange={(e) => handleUserLogin(e)}
-        />
-        <Button variant="contained" color="primary" type="submit">
-          Submit
-        </Button>
-      </form>
+      <Card className={classes.card}>
+        <CardContent>
+          <form
+            onSubmit={handleSubmit}
+            autoComplete="off"
+            className={classes.root}
+          >
+            <TextField
+              name="email"
+              label="Email"
+              onChange={(e) => handleUserLogin(e)}
+              className={classes.textField}
+            />
+            <TextField
+              name="password"
+              label="Password"
+              type="password"
+              className={classes.textField}
+              onChange={(e) => handleUserLogin(e)}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              className={classes.button}
+            >
+              Submit
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 };
