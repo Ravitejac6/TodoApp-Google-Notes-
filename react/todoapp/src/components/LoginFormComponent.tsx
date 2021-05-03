@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { UserLoginModel } from "../interfaces/userLoginModel";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../actions/register";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 export const LoginFormComponent = () => {
   let initialUserLogin: UserLoginModel = {
@@ -25,10 +26,11 @@ export const LoginFormComponent = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     dispatch(setLogin(userLogin));
-    history.push("/users/view");
-    console.log(userLogin);
+    setTimeout(() => {
+      history.push("/users/view");
+    }, 1000);
+    e.preventDefault();
   };
 
   return (

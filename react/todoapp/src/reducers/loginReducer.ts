@@ -8,13 +8,19 @@ const intialUserLogin: UserLoginModel = {
 };
 
 const postLoginData = (userData: UserLoginModel) => {
-  axios.post("/users/login", {
-    email: userData.email,
-    password: userData.password,
-  });
+  axios
+    .post("/users/login", {
+      email: userData.email,
+      password: userData.password,
+    })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 const setLoginFormReducer = (state: UserLoginModel, action: SetLoginAction) => {
-  console.log(action.payload);
   postLoginData(action.payload);
   return {
     ...state,

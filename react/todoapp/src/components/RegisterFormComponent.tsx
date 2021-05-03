@@ -30,7 +30,9 @@ export const RegisterFormComponent = () => {
     e.preventDefault();
     console.log(userRegister);
     dispatch(setRegister(userRegister));
-    history.push("/users/login");
+    setTimeout(() => {
+      history.push("/users/login");
+    }, 500);
   };
   return (
     <div>
