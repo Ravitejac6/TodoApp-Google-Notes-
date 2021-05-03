@@ -79,6 +79,10 @@ export const LoginFormComponent = () => {
     toast.warning("Wrong Credentials", { autoClose: 3000 });
   };
 
+  const goToRegister = () => {
+    history.push("/users/create");
+  };
+
   return (
     <div>
       <Card className={classes.card}>
@@ -117,6 +121,14 @@ export const LoginFormComponent = () => {
               className={classes.button}
             >
               Submit
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={goToRegister}
+              className={classes.button}
+            >
+              Register
             </Button>
           </form>
         </CardContent>

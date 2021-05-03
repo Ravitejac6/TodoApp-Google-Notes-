@@ -5,7 +5,10 @@ import axios from "axios";
 import { Button } from "@material-ui/core";
 import "../App.css";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 export const UserTodoViewComponent = () => {
   const [userEmail, setUserEmail] = useState<String>("");
   useEffect(() => {
@@ -30,6 +33,11 @@ export const UserTodoViewComponent = () => {
     setTimeout(() => {
       history.push("/users/login");
     }, 500);
+    toastInfo();
+  };
+
+  const toastInfo = () => {
+    toast.info("Successfully Logged Out", { autoClose: 3000 });
   };
   return (
     <div>
