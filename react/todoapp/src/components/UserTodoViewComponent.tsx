@@ -7,17 +7,21 @@ import "../App.css";
 import { useHistory } from "react-router-dom";
 
 export const UserTodoViewComponent = () => {
+  const [userEmail, setUserEmail] = useState<String>("");
   useEffect(() => {
     axios
       .get("/users/user")
       .then((res) => {
         setLogIn(true);
+        console.log(res.data);
+        setUserEmail(res.data.email);
+        console.log(userEmail);
       })
       .catch((err) => {
         setLogIn(false);
         history.push("/users/login");
       });
-  });
+  }, []);
 
   const history = useHistory();
   const [logIn, setLogIn] = useState<Boolean>(false);
@@ -29,7 +33,7 @@ export const UserTodoViewComponent = () => {
   };
   return (
     <div>
-      {logIn ? (
+      {logIn && userEmail !== "" ? (
         <div>
           <Button
             className="btn-logOut"
@@ -39,8 +43,8 @@ export const UserTodoViewComponent = () => {
           >
             LogOut
           </Button>
-          <TodoFormComponent />
-          <TodoListComponent />
+          <TodoFormComponent userEmail={userEmail} />
+          <TodoListComponent userEmail={userEmail} />
         </div>
       ) : (
         <div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Card, CardContent, Button, TextField } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
@@ -24,7 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const TodoFormComponent = () => {
+interface Props {
+  userEmail: String;
+}
+export const TodoFormComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const [title, setTitle] = useState<String>("");
   const [notes, setNotes] = useState<String>("");
@@ -44,7 +47,7 @@ export const TodoFormComponent = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(title);
     console.log(notes);
-    axios.post("/users/createTodo", {
+    axios.post("/users/createTodo/" + props.userEmail, {
       id: "123",
       title: title,
       description: notes,
@@ -56,7 +59,7 @@ export const TodoFormComponent = () => {
 
   return (
     <div>
-      <h4>TodoForm Component</h4>
+      <h4>New Todo</h4>
       <Card className={classes.root}>
         <CardContent>
           <form onSubmit={handleSubmit}>

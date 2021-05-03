@@ -83,17 +83,17 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
-  @Post('createTodo')
-  async createTodo(@Body() todo: TodoDto) {
-    const user = await this.usersService.findUser('ravi@gmail.com');
+  @Post('createTodo/:email')
+  async createTodo(@Body() todo: TodoDto, @Param('email') userEmail: string) {
+    const user = await this.usersService.findUser(userEmail);
     console.log(user._id);
     const res = await this.todosService.createTodo(todo, user._id);
-    console.log('UserId' + res);
+    return res;
   }
 
   @Get('getTodos/:email')
   async getTodos(@Param('email') userEmail: string) {
-    const user = await this.usersService.findUser('ravi@gmail.com');
+    const user = await this.usersService.findUser(userEmail);
     console.log(user._id);
     const res = await this.todosService.getAllTodos(user._id);
     return res;

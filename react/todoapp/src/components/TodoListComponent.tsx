@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Todo } from "../interfaces/todo";
 import { TodoItemComponent } from "./TodoItemComponent";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -13,12 +13,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const TodoListComponent = () => {
+interface Props {
+  userEmail: String;
+}
+export const TodoListComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const [todosList, setTodosList] = useState<Todo[]>([]);
   useEffect(() => {
     let todoArray: Todo[] = [];
-    axios.get("/users/getTodos/ravi@gmail.com").then((res) => {
+    console.log(props.userEmail);
+    axios.get("/users/getTodos/" + props.userEmail).then((res) => {
       let temp_arr: any[] = res.data;
       temp_arr.map((todo) => {
         todoArray.push({
@@ -29,14 +33,14 @@ export const TodoListComponent = () => {
       });
       setTodosList(todoArray);
     });
-  }, []);
+  }, [props.userEmail]);
 
   const removeTodo = (todoId: String) => {
     axios.delete("/users/" + todoId).then((res) => console.log(res.data));
   };
   return (
     <div>
-      <h4>TodoList Component</h4>
+      <h4>All TodoLists</h4>
       <div className={classes.root}>
         <Grid container spacing={3}>
           {todosList.map((todo) => {
