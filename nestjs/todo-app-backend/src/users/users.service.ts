@@ -65,4 +65,9 @@ export class UsersService {
     }));
     return users;
   }
+
+  async getVerifyUser(cookie) {
+    const res = await this.authService.verifyJWT(cookie);
+    return res;
+  }
 }

@@ -6,6 +6,8 @@ import {
   Param,
   Post,
   Req,
+  Res,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { User } from 'src/models/create-user.dto';
@@ -14,6 +16,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { TodoDto } from 'src/models/create-todo.dto';
 import { TodosService } from 'src/todos/todos.service';
+import { Response, Request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -36,9 +39,27 @@ export class UsersController {
   async login(
     @Body('email') userEmail: string,
     @Body('password') userPassword: string,
+    @Res({ passthrough: true }) response: Response,
   ) {
-    const token = await this.usersService.login(userEmail, userPassword);
-    return { access_token: token };
+    const jwt_token = await this.usersService.login(userEmail, userPassword);
+    response.cookie('jwt', jwt_token, { httpOnly: true });
+    return { access_token: jwt_token, message: 'Sucess' };
+  }
+
+  // Getting the cookie and access the information in it
+  @Get('user')
+  async user(@Req() request: Request) {
+    try {
+      const cookie = request.cookies['jwt'];
+      const data = await this.usersService.getVerifyUser(cookie);
+      if (!data) {
+        throw new UnauthorizedException();
+      }
+      const { password, ...res } = data.user;
+      return res;
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
   }
 
   @Get(':email')

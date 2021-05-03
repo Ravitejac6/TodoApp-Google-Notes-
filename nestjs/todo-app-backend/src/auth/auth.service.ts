@@ -9,4 +9,8 @@ export class AuthService {
   generateJWT(user: User): Promise<String> {
     return this.jwtService.signAsync({ user });
   }
+
+  async verifyJWT(cookie: any) {
+    return await this.jwtService.verifyAsync(cookie);
+  }
 }
