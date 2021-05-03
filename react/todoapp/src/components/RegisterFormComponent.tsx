@@ -1,11 +1,45 @@
-import { Button, TextField } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Card,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import { UserRegisterModel } from "../interfaces/userRegisterModel";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setRegister } from "../actions/register";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "40%",
+      margin: "30px",
+      marginLeft: "100px",
+    },
+    textField: {
+      margin: theme.spacing(1),
+      width: "50ch",
+    },
+    card: {
+      width: "60%",
+      height: "25%",
+      marginLeft: "100px",
+    },
+    button: {
+      alignItems: "center",
+      marginLeft: "150px",
+      marginTop: "20px",
+    },
+    title: {
+      marginLeft: "10px",
+    },
+  })
+);
 export const RegisterFormComponent = () => {
+  const classes = useStyles();
   let initialUserRegister: UserRegisterModel = {
     userName: "",
     email: "",
@@ -36,27 +70,50 @@ export const RegisterFormComponent = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit} autoComplete="off">
-        <TextField
-          name="userName"
-          label="UserName"
-          onChange={(e) => handleUserRegister(e)}
-        />
-        <TextField
-          name="email"
-          label="Email"
-          onChange={(e) => handleUserRegister(e)}
-        />
-        <TextField
-          name="password"
-          label="Password"
-          type="password"
-          onChange={(e) => handleUserRegister(e)}
-        />
-        <Button variant="contained" color="primary" type="submit">
-          Submit
-        </Button>
-      </form>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            className={classes.title}
+          >
+            Register
+          </Typography>
+          <form
+            onSubmit={handleSubmit}
+            autoComplete="off"
+            className={classes.root}
+          >
+            <TextField
+              name="userName"
+              label="UserName"
+              onChange={(e) => handleUserRegister(e)}
+              className={classes.textField}
+            />
+            <TextField
+              name="email"
+              label="Email"
+              onChange={(e) => handleUserRegister(e)}
+              className={classes.textField}
+            />
+            <TextField
+              name="password"
+              label="Password"
+              type="password"
+              onChange={(e) => handleUserRegister(e)}
+              className={classes.textField}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              className={classes.button}
+            >
+              Submit
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 };

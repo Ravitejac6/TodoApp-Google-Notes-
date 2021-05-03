@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, TextField, Card, CardContent } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Card,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
 import { UserLoginModel } from "../interfaces/userLoginModel";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../actions/register";
@@ -26,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       marginLeft: "150px",
       marginTop: "20px",
+    },
+    title: {
+      marginLeft: "10px",
     },
   })
 );
@@ -62,6 +71,13 @@ export const LoginFormComponent = () => {
     <div>
       <Card className={classes.card}>
         <CardContent>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            className={classes.title}
+          >
+            Login
+          </Typography>
           <form
             onSubmit={handleSubmit}
             autoComplete="off"
