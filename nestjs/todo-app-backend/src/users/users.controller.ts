@@ -62,6 +62,14 @@ export class UsersController {
     }
   }
 
+  @Post('logout')
+  async logout(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('jwt');
+    return {
+      message: 'LogOut successfully',
+    };
+  }
+
   @Get(':email')
   async getUser(@Param('email') userEmail: string) {
     const user = await this.usersService.getUser(userEmail);
