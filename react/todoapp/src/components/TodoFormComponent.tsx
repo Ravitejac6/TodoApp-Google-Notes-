@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "60ch",
       },
       width: "40%",
+      marginRight: "100px",
     },
     underline: {
       "&&&:before": {
@@ -21,10 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
       "&&:after": {
         borderBottom: "none",
       },
-    },
-
-    icon: {
-      float: "right",
     },
   })
 );
@@ -86,8 +83,8 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
               InputProps={{ classes }}
               onChange={(e) => handleNotesChange(e)}
             />
-            <IconButton type="submit" className={classes.icon}>
-              <AddIcon color="primary" fontSize="large" />
+            <IconButton type="submit">
+              <AddIcon fontSize="large" color="primary" />
             </IconButton>
           </form>
         </CardContent>

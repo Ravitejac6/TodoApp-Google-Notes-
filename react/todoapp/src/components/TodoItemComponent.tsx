@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
         borderBottom: "none",
       },
     },
-    icon: {
-      float: "right",
-    },
   })
 );
 
@@ -89,10 +86,10 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             InputProps={{ classes }}
             onChange={(e) => handleNotesChange(e)}
           />
-          <IconButton onClick={handleDeleteTodo} className={classes.icon}>
+          <IconButton onClick={handleDeleteTodo}>
             <DeleteIcon color="secondary" />
           </IconButton>
-          <IconButton onClick={handleUpdateTodo} className={classes.icon}>
+          <IconButton onClick={handleUpdateTodo}>
             <CreateIcon color="primary" />
           </IconButton>
         </CardContent>
