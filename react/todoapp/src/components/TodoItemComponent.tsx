@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { Card, CardContent, TextField, Button } from "@material-ui/core";
+import { Card, CardContent, TextField, IconButton } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Todo } from "../interfaces/todo";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
       "& > *": {
         margin: theme.spacing(0.5),
         padding: theme.spacing(1.5),
-        width: "50ch",
+        width: "60ch",
       },
       width: "40%",
     },
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
       "&&:after": {
         borderBottom: "none",
       },
+    },
+    icon: {
+      float: "right",
     },
   })
 );
@@ -85,21 +89,12 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             InputProps={{ classes }}
             onChange={(e) => handleNotesChange(e)}
           />
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleDeleteTodo}
-            startIcon={<DeleteIcon />}
-          >
-            Delete
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleUpdateTodo}
-          >
-            Update
-          </Button>
+          <IconButton onClick={handleDeleteTodo} className={classes.icon}>
+            <DeleteIcon color="secondary" />
+          </IconButton>
+          <IconButton onClick={handleUpdateTodo} className={classes.icon}>
+            <CreateIcon color="primary" />
+          </IconButton>
         </CardContent>
       </Card>
     </div>

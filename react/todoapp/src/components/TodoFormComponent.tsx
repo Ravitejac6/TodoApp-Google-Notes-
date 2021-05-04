@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useState } from "react";
-import { Card, CardContent, Button, TextField } from "@material-ui/core";
+import { Card, CardContent, TextField, IconButton } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
 import "../App.css";
-import CreateIcon from "@material-ui/icons/Create";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       "& > *": {
         margin: theme.spacing(0.5),
-        width: "50ch",
+        width: "60ch",
       },
       width: "40%",
     },
@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
       "&&:after": {
         borderBottom: "none",
       },
+    },
+
+    icon: {
+      float: "right",
     },
   })
 );
@@ -82,14 +86,9 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
               InputProps={{ classes }}
               onChange={(e) => handleNotesChange(e)}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              startIcon={<CreateIcon />}
-            >
-              Add
-            </Button>
+            <IconButton type="submit" className={classes.icon}>
+              <AddIcon color="primary" fontSize="large" />
+            </IconButton>
           </form>
         </CardContent>
       </Card>

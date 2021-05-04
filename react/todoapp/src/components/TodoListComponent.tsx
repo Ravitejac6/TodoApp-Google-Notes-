@@ -41,6 +41,9 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
       if (isDeleted) {
         toastDelete();
       }
+      if (isUpdated) {
+        toastUpdate();
+      }
       setisDeleted(false);
       setisUpated(false);
     });
@@ -61,6 +64,9 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
     });
   };
 
+  const toastUpdate = () => {
+    toast.info("Updated Successfully", { autoClose: 3000 });
+  };
   const toastDelete = () => {
     toast.warn("Deleted Successfully", { autoClose: 3000 });
   };
