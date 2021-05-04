@@ -24,6 +24,7 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const [todosList, setTodosList] = useState<Todo[]>([]);
   const [isDeleted, setisDeleted] = useState<Boolean>(false);
+  const [isUpdated, setisUpated] = useState<Boolean>(false);
   useEffect(() => {
     let todoArray: Todo[] = [];
     console.log(props.userEmail);
@@ -41,13 +42,22 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
         toastDelete();
       }
       setisDeleted(false);
+      setisUpated(false);
     });
-  }, [props.userEmail, isDeleted]);
+  }, [props.userEmail, isDeleted, isUpdated]);
 
   const removeTodo = (todoId: String) => {
     axios.delete("/users/" + todoId).then((res) => {
       console.log(res.data);
       setisDeleted(true);
+    });
+  };
+
+  const updateTodo = (todo: Todo) => {
+    console.log(todo);
+    axios.post("/users/updateTodo", todo).then((res) => {
+      console.log(res.data);
+      setisUpated(true);
     });
   };
 
@@ -62,7 +72,11 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
           {todosList.map((todo) => {
             return (
               <Grid item xs key={todo.id.toString()}>
-                <TodoItemComponent todo={todo} removeTodo={removeTodo} />
+                <TodoItemComponent
+                  todo={todo}
+                  removeTodo={removeTodo}
+                  updateTodo={updateTodo}
+                />
               </Grid>
             );
           })}

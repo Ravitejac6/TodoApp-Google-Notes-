@@ -94,6 +94,12 @@ export class UsersController {
     return res;
   }
 
+  @Post('updateTodo')
+  async updateTodo(@Body() todo: TodoDto) {
+    const res = await this.todosService.updateTodo(todo);
+    return res;
+  }
+
   @Get('getTodos/:email')
   async getTodos(@Param('email') userEmail: string) {
     const user = await this.usersService.findUser(userEmail);

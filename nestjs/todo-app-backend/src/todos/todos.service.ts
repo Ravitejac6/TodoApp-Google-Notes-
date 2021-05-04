@@ -34,6 +34,14 @@ export class TodosService {
     return todos;
   }
 
+  async updateTodo(newTodo: TodoDto) {
+    const updatedTodo = await this.todosModel.findById(newTodo.id).exec();
+    updatedTodo.title = newTodo.title;
+    updatedTodo.description = newTodo.description;
+    updatedTodo.save();
+    return updatedTodo;
+  }
+
   async removeTodo(todoId: String) {
     const res = await this.todosModel.deleteOne({ _id: todoId }).exec();
     if (res.n === 0) {

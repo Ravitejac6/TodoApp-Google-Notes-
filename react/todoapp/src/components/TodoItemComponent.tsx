@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { Card, CardContent, TextField, Button } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Todo } from "../interfaces/todo";
@@ -28,11 +28,17 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   todo: Todo;
   removeTodo: (todoId: String) => void;
+  updateTodo: (todo: Todo) => void;
 }
 export const TodoItemComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const [title, setTitle] = useState<String>("");
   const [notes, setNotes] = useState<String>("");
+
+  useEffect(() => {
+    setTitle(props.todo.title);
+    setNotes(props.todo.description);
+  }, []);
   const handleTitleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -48,6 +54,15 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
   const handleDeleteTodo = () => {
     props.removeTodo(props.todo.id);
   };
+
+  const handleUpdateTodo = () => {
+    const updatedTodo: Todo = {
+      id: props.todo.id,
+      description: notes,
+      title: title,
+    };
+    props.updateTodo(updatedTodo);
+  };
   return (
     <div>
       <Card className={classes.root}>
@@ -55,7 +70,7 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
           <TextField
             name="title"
             label="Title"
-            value={props.todo.title}
+            value={title}
             fullWidth={true}
             InputProps={{ classes }}
             onChange={(e) => handleTitleChange(e)}
@@ -64,7 +79,7 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             name="description"
             label="Notes"
             rows={5}
-            value={props.todo.description}
+            value={notes}
             fullWidth={true}
             multiline={true}
             InputProps={{ classes }}
@@ -77,6 +92,13 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             startIcon={<DeleteIcon />}
           >
             Delete
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleUpdateTodo}
+          >
+            Update
           </Button>
         </CardContent>
       </Card>
