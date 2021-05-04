@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { Card, CardContent, TextField, Button } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Todo } from "../interfaces/todo";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,9 +71,10 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             onChange={(e) => handleNotesChange(e)}
           />
           <Button
-            variant="outlined"
+            variant="contained"
             color="secondary"
             onClick={handleDeleteTodo}
+            startIcon={<DeleteIcon />}
           >
             Delete
           </Button>

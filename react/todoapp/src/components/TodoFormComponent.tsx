@@ -3,6 +3,7 @@ import { Card, CardContent, Button, TextField } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
 import "../App.css";
+import CreateIcon from "@material-ui/icons/Create";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +46,7 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log(title);
     console.log(notes);
     axios.post("/users/createTodo/" + props.userEmail, {
@@ -54,7 +56,6 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
     });
     setTitle("");
     setNotes("");
-    e.preventDefault();
   };
 
   return (
@@ -81,7 +82,12 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
               InputProps={{ classes }}
               onChange={(e) => handleNotesChange(e)}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              startIcon={<CreateIcon />}
+            >
               Add
             </Button>
           </form>

@@ -4,6 +4,10 @@ import { Todo } from "../interfaces/todo";
 import { TodoItemComponent } from "./TodoItemComponent";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +23,7 @@ interface Props {
 export const TodoListComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const [todosList, setTodosList] = useState<Todo[]>([]);
+  const [isDeleted, setisDeleted] = useState<Boolean>(false);
   useEffect(() => {
     let todoArray: Todo[] = [];
     console.log(props.userEmail);
@@ -32,11 +37,22 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
         });
       });
       setTodosList(todoArray);
+      if (isDeleted) {
+        toastDelete();
+      }
+      setisDeleted(false);
     });
-  }, [props.userEmail]);
+  }, [props.userEmail, isDeleted]);
 
   const removeTodo = (todoId: String) => {
-    axios.delete("/users/" + todoId).then((res) => console.log(res.data));
+    axios.delete("/users/" + todoId).then((res) => {
+      console.log(res.data);
+      setisDeleted(true);
+    });
+  };
+
+  const toastDelete = () => {
+    toast.warn("Deleted Successfully", { autoClose: 3000 });
   };
   return (
     <div>
