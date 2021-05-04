@@ -11,9 +11,12 @@ const useStyles = makeStyles((theme: Theme) =>
       "& > *": {
         margin: theme.spacing(0.5),
         width: "60ch",
+        display: "flex",
+        flexDirection: "column",
       },
       width: "40%",
       marginRight: "100px",
+      display: "flex",
     },
     underline: {
       "&&&:before": {
@@ -62,7 +65,10 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
   return (
     <div>
       <h4>New Todo</h4>
-      <Card className={classes.root}>
+      <Card
+        className={classes.root}
+        style={{ boxShadow: "0 1px 7px rgb(128,128,128)" }}
+      >
         <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -83,9 +89,15 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
               InputProps={{ classes }}
               onChange={(e) => handleNotesChange(e)}
             />
-            <IconButton type="submit">
-              <AddIcon fontSize="large" color="primary" />
-            </IconButton>
+            <span
+              style={{
+                marginLeft: "85%",
+              }}
+            >
+              <IconButton type="submit">
+                <AddIcon fontSize="large" color="primary" />
+              </IconButton>
+            </span>
           </form>
         </CardContent>
       </Card>

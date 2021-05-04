@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "60%",
       height: "25%",
       marginLeft: "100px",
+      boxShadow: "0 1px 7px rgb(128,128,128)",
     },
     button: {
       alignItems: "center",

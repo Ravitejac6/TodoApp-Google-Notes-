@@ -11,9 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
       "& > *": {
         margin: theme.spacing(0.5),
         padding: theme.spacing(1.5),
-        width: "60ch",
+        width: "70ch",
       },
-      width: "40%",
+      width: "30%",
+      display: "flex",
     },
     underline: {
       "&&&:before": {
@@ -66,7 +67,10 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
   };
   return (
     <div>
-      <Card className={classes.root}>
+      <Card
+        className={classes.root}
+        style={{ boxShadow: "0 1px 7px rgb(128,128,128)" }}
+      >
         <CardContent>
           <TextField
             name="title"
@@ -86,12 +90,14 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             InputProps={{ classes }}
             onChange={(e) => handleNotesChange(e)}
           />
-          <IconButton onClick={handleDeleteTodo}>
-            <DeleteIcon color="secondary" />
-          </IconButton>
-          <IconButton onClick={handleUpdateTodo}>
-            <CreateIcon color="primary" />
-          </IconButton>
+          <span style={{ marginLeft: "45%" }}>
+            <IconButton onClick={handleDeleteTodo}>
+              <DeleteIcon color="secondary" />
+            </IconButton>
+            <IconButton onClick={handleUpdateTodo}>
+              <CreateIcon color="primary" />
+            </IconButton>
+          </span>
         </CardContent>
       </Card>
     </div>
