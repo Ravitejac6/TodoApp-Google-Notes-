@@ -25,6 +25,11 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
   const [todosList, setTodosList] = useState<Todo[]>([]);
   const [isDeleted, setisDeleted] = useState<Boolean>(false);
   const [isUpdated, setisUpated] = useState<Boolean>(false);
+  const token = localStorage.getItem("token");
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + token,
+  };
   useEffect(() => {
     let todoArray: Todo[] = [];
     console.log(props.userEmail);

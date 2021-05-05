@@ -75,6 +75,10 @@ export const RegisterFormComponent = () => {
     }, 500);
   };
 
+  const handleRegister = () => {
+    history.push("/users/login");
+  };
+
   const toastSuccess = () => {
     toast.success("Successfully Logged In", { autoClose: 3000 });
   };
@@ -123,6 +127,14 @@ export const RegisterFormComponent = () => {
               className={classes.button}
             >
               Submit
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleRegister}
+              className={classes.button}
+            >
+              Login
             </Button>
           </form>
         </CardContent>

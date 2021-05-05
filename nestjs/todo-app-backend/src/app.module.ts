@@ -1,10 +1,17 @@
-import { Module } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { TodosModule } from './todos/todos.module';
+import { LoggerMiddleWare } from './middlewares/logger.middleware';
+import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [
@@ -18,4 +25,10 @@ import { TodosModule } from './todos/todos.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleWare)
+      .forRoutes({ path: 'users/createTodo', method: RequestMethod.POST });
+  }
+}

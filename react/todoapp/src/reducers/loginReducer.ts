@@ -7,6 +7,11 @@ const intialUserLogin: UserLoginModel = {
   password: "",
 };
 export let errorMsg = false;
+
+const saveTokenInLocalStorage = (data: any) => {
+  const token = data.access_token;
+  localStorage.setItem("token", JSON.stringify(token));
+};
 const postLoginData = (userData: UserLoginModel) => {
   axios
     .post("/users/login", {
@@ -14,7 +19,8 @@ const postLoginData = (userData: UserLoginModel) => {
       password: userData.password,
     })
     .then((res) => {
-      console.log(res.data);
+      //console.log(res.data);
+      saveTokenInLocalStorage(res.data);
       if (res.data.msg === "Wrong Credentials") {
         errorMsg = true;
       }

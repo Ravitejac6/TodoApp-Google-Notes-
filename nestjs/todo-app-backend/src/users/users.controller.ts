@@ -87,9 +87,12 @@ export class UsersController {
   }
 
   @Post('createTodo/:email')
-  async createTodo(@Body() todo: TodoDto, @Param('email') userEmail: string) {
+  async createTodo(
+    @Req() req,
+    @Body() todo: TodoDto,
+    @Param('email') userEmail: string,
+  ) {
     const user = await this.usersService.findUser(userEmail);
-    console.log(user._id);
     const res = await this.todosService.createTodo(todo, user._id);
     return res;
   }
