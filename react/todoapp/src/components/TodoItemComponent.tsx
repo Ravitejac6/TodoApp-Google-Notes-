@@ -10,10 +10,10 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       "& > *": {
         margin: theme.spacing(0.5),
-        padding: theme.spacing(1.5),
-        width: "70ch",
+        padding: theme.spacing(1),
+        width: "30ch",
       },
-      width: "30%",
+      width: "300px",
       display: "flex",
     },
     underline: {

@@ -79,10 +79,10 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
     <div>
       <h4>All TodoLists</h4>
       <div className={classes.root}>
-        <Grid container spacing={3}>
+        <Grid container spacing={1} style={{ gap: 5 }}>
           {todosList.map((todo) => {
             return (
-              <Grid item xs key={todo.id.toString()}>
+              <Grid item xs={3} key={todo.id.toString()}>
                 <TodoItemComponent
                   todo={todo}
                   removeTodo={removeTodo}

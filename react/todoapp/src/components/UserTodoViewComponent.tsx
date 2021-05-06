@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 export const UserTodoViewComponent = () => {
   const [userEmail, setUserEmail] = useState<String>("");
-
   // It is used to check whether user authenticated successfully or not and maintaing the state of LogIn
   useEffect(() => {
     // axios
@@ -40,16 +39,6 @@ export const UserTodoViewComponent = () => {
 
   const history = useHistory();
   const [logIn, setLogIn] = useState<Boolean>(false);
-  const logOut = () => {
-    axios.post("/users/logout").then((res) => {
-      console.log(res);
-      localStorage.removeItem("token");
-    });
-    setTimeout(() => {
-      history.push("/users/login");
-    }, 500);
-    toastLogOut();
-  };
 
   const toastLogOut = () => {
     toast.info("User Logged Out", { autoClose: 3000 });
@@ -58,14 +47,6 @@ export const UserTodoViewComponent = () => {
     <div>
       {logIn && userEmail !== "" ? (
         <div>
-          <Button
-            className="btn-logOut"
-            variant="contained"
-            color="secondary"
-            onClick={logOut}
-          >
-            LogOut
-          </Button>
           <TodoFormComponent userEmail={userEmail} />
           <TodoListComponent userEmail={userEmail} />
         </div>

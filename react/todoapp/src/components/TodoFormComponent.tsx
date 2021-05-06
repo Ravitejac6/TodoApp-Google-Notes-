@@ -4,6 +4,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
 import "../App.css";
 import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -103,9 +104,12 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
                 marginLeft: "85%",
               }}
             >
-              <IconButton type="submit">
+              <Fab type="submit" color="primary" arial-label="add">
+                <AddIcon fontSize="large" />
+              </Fab>
+              {/* <IconButton type="submit">
                 <AddIcon fontSize="large" color="primary" />
-              </IconButton>
+              </IconButton> */}
             </span>
           </form>
         </CardContent>
