@@ -18,24 +18,36 @@ toast.configure();
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: "40%",
-      margin: "30px",
-      marginLeft: "100px",
+      // width: "40%",
+      margin: "10px",
+      marginLeft: "30px",
     },
     textField: {
-      margin: theme.spacing(1),
-      width: "50ch",
+      // margin: theme.spacing(1),
+      // width: "50ch",
+      margin: theme.spacing(0.5),
+      width: "60ch",
+      display: "flex",
+      flexDirection: "column",
     },
     card: {
-      width: "60%",
-      height: "25%",
+      width: "600px",
+      height: "300px",
       marginLeft: "100px",
       boxShadow: "0 1px 7px rgb(128,128,128)",
+    },
+    cardContent: {
+      display: "flex",
+      flexWrap: "wrap",
+      flexDirection: "column",
+      flex: "1 1 auto",
     },
     button: {
       alignItems: "center",
       marginLeft: "150px",
       marginTop: "20px",
+      display: "flex",
+      flexDirection: "column",
     },
     title: {
       marginLeft: "10px",
@@ -67,13 +79,14 @@ export const LoginFormComponent = () => {
     e.preventDefault();
     dispatch(setLogin(userLogin));
     setTimeout(() => {
-      if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toastWarning();
+      } else {
         history.push("/users/view");
         toastSuccess();
-      } else {
-        toastWarning();
       }
-    }, 500);
+    }, 2000);
   };
 
   const toastSuccess = () => {
@@ -91,7 +104,7 @@ export const LoginFormComponent = () => {
   return (
     <div className="shadow-area">
       <Card className={classes.card}>
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography
             color="textPrimary"
             variant="h5"

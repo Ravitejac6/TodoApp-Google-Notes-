@@ -27,7 +27,6 @@ const postLoginData = (userData: UserLoginModel) => {
       console.log(errorMsg);
     })
     .catch((err) => {
-      localStorage.setItem("token", "null");
       console.log(err);
     });
 };

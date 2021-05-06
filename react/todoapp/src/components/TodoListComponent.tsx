@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
+    gridItem: {
+      marginRight: "10%",
+    },
   })
 );
 
@@ -82,7 +85,12 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
         <Grid container spacing={1} style={{ gap: 5 }}>
           {todosList.map((todo) => {
             return (
-              <Grid item xs={3} key={todo.id.toString()}>
+              <Grid
+                item
+                xs={3}
+                key={todo.id.toString()}
+                className={classes.gridItem}
+              >
                 <TodoItemComponent
                   todo={todo}
                   removeTodo={removeTodo}

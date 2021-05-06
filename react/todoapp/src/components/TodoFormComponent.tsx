@@ -15,9 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "flex",
         flexDirection: "column",
       },
-      width: "40%",
+      width: "550px",
       marginRight: "100px",
       display: "flex",
+      flexWrap: "wrap",
     },
     underline: {
       "&&&:before": {
@@ -101,7 +102,7 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
             />
             <span
               style={{
-                marginLeft: "85%",
+                float: "right",
               }}
             >
               <Fab type="submit" color="primary" arial-label="add">

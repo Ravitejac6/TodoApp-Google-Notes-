@@ -19,24 +19,33 @@ toast.configure();
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: "40%",
       margin: "30px",
-      marginLeft: "100px",
+      marginLeft: "50px",
     },
     textField: {
-      margin: theme.spacing(1),
-      width: "50ch",
+      margin: theme.spacing(0.5),
+      width: "60ch",
+      display: "flex",
+      flexDirection: "column",
     },
     card: {
-      width: "60%",
-      height: "25%",
+      width: "700px",
+      height: "400px",
       marginLeft: "100px",
       boxShadow: "0 1px 7px rgb(128,128,128)",
     },
+    cardContent: {
+      display: "flex",
+      flexWrap: "wrap",
+      flexDirection: "column",
+      flex: "1 1 auto",
+    },
     button: {
-      alignItems: "center",
-      marginLeft: "150px",
-      marginTop: "20px",
+      // alignItems: "center",
+      // marginLeft: "150px",
+      // marginTop: "20px",
+      // display: "flex",
+      marginLeft: "10px",
     },
     title: {
       marginLeft: "10px",
@@ -85,7 +94,7 @@ export const RegisterFormComponent = () => {
   return (
     <div>
       <Card className={classes.card}>
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography
             color="textPrimary"
             variant="h5"
@@ -120,22 +129,24 @@ export const RegisterFormComponent = () => {
               className={classes.textField}
               required={true}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              className={classes.button}
-            >
-              Submit
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleRegister}
-              className={classes.button}
-            >
-              Login
-            </Button>
+            <div className="button-area">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className={classes.button}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleRegister}
+                className={classes.button}
+              >
+                Login
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>
