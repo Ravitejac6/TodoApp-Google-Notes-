@@ -33,7 +33,7 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
   useEffect(() => {
     let todoArray: Todo[] = [];
     console.log(props.userEmail);
-    axios.get("/users/getTodos/" + props.userEmail).then((res) => {
+    axios.get("/users/getTodos", { headers: headers }).then((res) => {
       let temp_arr: any[] = res.data;
       temp_arr.map((todo) => {
         todoArray.push({
@@ -55,7 +55,7 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
   }, [props.userEmail, isDeleted, isUpdated]);
 
   const removeTodo = (todoId: String) => {
-    axios.delete("/users/" + todoId).then((res) => {
+    axios.delete("/users/" + todoId, { headers: headers }).then((res) => {
       console.log(res.data);
       setisDeleted(true);
     });
@@ -63,7 +63,7 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
 
   const updateTodo = (todo: Todo) => {
     console.log(todo);
-    axios.post("/users/updateTodo", todo).then((res) => {
+    axios.post("/users/updateTodo", todo, { headers: headers }).then((res) => {
       console.log(res.data);
       setisUpated(true);
     });

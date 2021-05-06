@@ -90,7 +90,8 @@ export const TodoItemComponent: FunctionComponent<Props> = (props) => {
             InputProps={{ classes }}
             onChange={(e) => handleNotesChange(e)}
           />
-          <span style={{ marginLeft: "45%" }}>
+          {/* style={{ marginLeft: "45%" }} */}
+          <span>
             <IconButton onClick={handleDeleteTodo}>
               <DeleteIcon color="secondary" />
             </IconButton>

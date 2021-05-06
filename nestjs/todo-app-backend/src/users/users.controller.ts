@@ -73,11 +73,11 @@ export class UsersController {
     };
   }
 
-  @Get(':email')
-  async getUser(@Param('email') userEmail: string) {
-    const user = await this.usersService.getUser(userEmail);
-    return user;
-  }
+  // @Get(':email')
+  // async getUser(@Param('email') userEmail: string) {
+  //   const user = await this.usersService.getUser(userEmail);
+  //   return user;
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -86,12 +86,13 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
-  @Post('createTodo/:email')
+  @Post('createTodo')
   async createTodo(
     @Req() req,
     @Body() todo: TodoDto,
-    @Param('email') userEmail: string,
+    //@Param('email') userEmail: string,
   ) {
+    let userEmail = req.user.email;
     const user = await this.usersService.findUser(userEmail);
     const res = await this.todosService.createTodo(todo, user._id);
     return res;
@@ -103,10 +104,12 @@ export class UsersController {
     return res;
   }
 
-  @Get('getTodos/:email')
-  async getTodos(@Param('email') userEmail: string) {
+  @Get('getTodos')
+  async getTodos(@Req() req) {
+    console.log(req.user.email);
+    let userEmail = req.user.email;
     const user = await this.usersService.findUser(userEmail);
-    console.log(user._id);
+    //console.log(user._id);
     const res = await this.todosService.getAllTodos(user._id);
     return res;
   }

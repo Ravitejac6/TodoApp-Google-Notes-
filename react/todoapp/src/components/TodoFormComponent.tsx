@@ -53,11 +53,20 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
     e.preventDefault();
     console.log(title);
     console.log(notes);
-    axios.post("/users/createTodo/" + props.userEmail, {
-      id: "123",
-      title: title,
-      description: notes,
-    });
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    };
+    axios.post(
+      "/users/createTodo",
+      {
+        id: "123",
+        title: title,
+        description: notes,
+      },
+      { headers: headers }
+    );
     setTitle("");
     setNotes("");
   };

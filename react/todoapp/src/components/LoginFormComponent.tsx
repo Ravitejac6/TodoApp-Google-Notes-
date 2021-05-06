@@ -67,9 +67,13 @@ export const LoginFormComponent = () => {
     e.preventDefault();
     dispatch(setLogin(userLogin));
     setTimeout(() => {
-      history.push("/users/view");
-    }, 1000);
-    toastSuccess();
+      if (localStorage.getItem("token")) {
+        history.push("/users/view");
+        toastSuccess();
+      } else {
+        toastWarning();
+      }
+    }, 500);
   };
 
   const toastSuccess = () => {

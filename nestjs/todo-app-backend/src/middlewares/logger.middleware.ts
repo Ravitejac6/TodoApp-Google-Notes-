@@ -20,7 +20,8 @@ export class LoggerMiddleWare implements NestMiddleware {
     ) {
       jwt_token = req.headers.authorization.split(' ')[1];
     }
-    const data = await this.authService.verifyJWT(jwt_token);
+    // JSON.parse() is not kept then getting JsonWebTokenError: Invalid Token
+    const data = await this.authService.verifyJWT(JSON.parse(jwt_token));
     if (!data) {
       return next(new UnauthorizedException('User unauthorized'));
     }

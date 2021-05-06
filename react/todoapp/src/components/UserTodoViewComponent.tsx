@@ -14,25 +14,37 @@ export const UserTodoViewComponent = () => {
 
   // It is used to check whether user authenticated successfully or not and maintaing the state of LogIn
   useEffect(() => {
-    axios
-      .get("/users/user")
-      .then((res) => {
-        setLogIn(true);
-        //console.log(res.data);
-        setUserEmail(res.data.email);
-        //console.log(userEmail);
-      })
-      .catch((err) => {
-        setLogIn(false);
-        history.push("/users/login");
-        toastLogOut();
-      });
+    // axios
+    //   .get("/users/user")
+    //   .then((res) => {
+    //     setLogIn(true);
+    //     //console.log(res.data);
+    //     setUserEmail(res.data.email);
+    //     //console.log(userEmail);
+    //   })
+    //   .catch((err) => {
+    //     setLogIn(false);
+    //     history.push("/users/login");
+    //     toastLogOut();
+    //   });
+    const token: string | null | undefined = localStorage.getItem("token");
+    if (token) {
+      setLogIn(true);
+      setUserEmail("raviteja@gmail.com");
+    } else {
+      setLogIn(false);
+      history.push("/users/login");
+      toastLogOut();
+    }
   }, []);
 
   const history = useHistory();
   const [logIn, setLogIn] = useState<Boolean>(false);
   const logOut = () => {
-    axios.post("/users/logout").then((res) => console.log(res));
+    axios.post("/users/logout").then((res) => {
+      console.log(res);
+      localStorage.removeItem("token");
+    });
     setTimeout(() => {
       history.push("/users/login");
     }, 500);

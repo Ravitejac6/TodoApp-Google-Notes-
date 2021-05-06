@@ -29,6 +29,11 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleWare)
-      .forRoutes({ path: 'users/createTodo', method: RequestMethod.POST });
+      .forRoutes(
+        { path: 'users/createTodo', method: RequestMethod.POST },
+        { path: 'users/getTodos', method: RequestMethod.GET },
+        { path: 'users/:id', method: RequestMethod.DELETE },
+        { path: 'users/updateTodo', method: RequestMethod.POST },
+      );
   }
 }
