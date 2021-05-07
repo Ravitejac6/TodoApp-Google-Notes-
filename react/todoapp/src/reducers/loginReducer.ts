@@ -1,6 +1,10 @@
-import { SetLoginAction } from "../actions/actionTypes/registerAction";
+import {
+  addTodoAction,
+  SetLoginAction,
+} from "../actions/actionTypes/registerAction";
 import { UserLoginModel } from "../interfaces/userLoginModel";
 import axios from "axios";
+import { TodoVal } from "../actions/register";
 
 const intialUserLogin: UserLoginModel = {
   email: "",
@@ -45,6 +49,25 @@ export const loginReducer = (
   switch (action.type) {
     case "LOGIN_USER": {
       return setLoginFormReducer(state, action);
+    }
+    default:
+      return state;
+  }
+};
+
+let initialVal: TodoVal = {
+  value: 0,
+};
+export const addTodoReducer = (
+  state: TodoVal = initialVal,
+  action: addTodoAction
+) => {
+  switch (action.type) {
+    case "todo/add": {
+      return {
+        ...state,
+        value: state.value + 1,
+      };
     }
     default:
       return state;

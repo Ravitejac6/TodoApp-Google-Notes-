@@ -3,7 +3,7 @@ import { Toolbar, Typography, AppBar, IconButton } from "@material-ui/core";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
@@ -30,7 +30,7 @@ export const ToolBarComponent = () => {
         <Typography variant="h6">TODO App</Typography>
         <span style={{ marginLeft: "90%" }}>
           <IconButton onClick={logOut}>
-            <AccountCircleIcon fontSize="inherit" />
+            <ExitToAppIcon fontSize="large" />
           </IconButton>
         </span>
       </Toolbar>

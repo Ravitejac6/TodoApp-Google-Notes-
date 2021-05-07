@@ -5,9 +5,13 @@ import {
   combineReducers,
 } from "@reduxjs/toolkit";
 import { registerReducer } from "../reducers/registerReducer";
-import { loginReducer } from "../reducers/loginReducer";
+import { loginReducer, addTodoReducer } from "../reducers/loginReducer";
 
-const reducers = combineReducers({ registerReducer, loginReducer });
+const reducers = combineReducers({
+  registerReducer,
+  loginReducer,
+  addTodoReducer,
+});
 export const store = createStore(reducers);
 
 export type RootState = ReturnType<typeof store.getState>;

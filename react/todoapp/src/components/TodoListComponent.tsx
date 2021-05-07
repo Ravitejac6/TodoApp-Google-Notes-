@@ -6,6 +6,8 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import { TodoVal } from "../actions/register";
 
 toast.configure();
 
@@ -33,6 +35,8 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
     "Content-Type": "application/json",
     Authorization: "Bearer " + token,
   };
+
+  const val = useSelector((state: TodoVal) => state);
   useEffect(() => {
     let todoArray: Todo[] = [];
     console.log(props.userEmail);
@@ -55,11 +59,10 @@ export const TodoListComponent: FunctionComponent<Props> = (props) => {
       setisDeleted(false);
       setisUpated(false);
     });
-  }, [props.userEmail, isDeleted, isUpdated]);
+  }, [props.userEmail, isDeleted, isUpdated, val]);
 
   const removeTodo = (todoId: String) => {
     axios.delete("/users/" + todoId, { headers: headers }).then((res) => {
-      console.log(res.data);
       setisDeleted(true);
     });
   };

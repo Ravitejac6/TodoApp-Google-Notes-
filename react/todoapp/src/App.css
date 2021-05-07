@@ -1,6 +1,7 @@
 .form-area {
   margin-top: 7%;
   margin-left: 15%;
+  /* display: flex; */
 }
 
 .btn-logOut {

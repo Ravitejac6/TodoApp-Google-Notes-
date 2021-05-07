@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useState } from "react";
-import { Card, CardContent, TextField, IconButton } from "@material-ui/core";
+import { Card, CardContent, TextField } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
 import "../App.css";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../actions/register";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +22,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexWrap: "wrap",
     },
+    // form: {
+    //   display: "flex",
+    //   flexWrap: "wrap",
+    //   flexDirection: "row",
+    // },
+    // formArea: {
+    //   display: "flex",
+    //   marginTop: "50px",
+    // },
     underline: {
       "&&&:before": {
         borderBottom: "none",
@@ -38,6 +49,7 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const [title, setTitle] = useState<String>("");
   const [notes, setNotes] = useState<String>("");
+  const dispatch = useDispatch();
 
   const handleTitleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -60,28 +72,39 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     };
-    axios.post(
-      "/users/createTodo",
-      {
-        id: "123",
-        title: title,
-        description: notes,
-      },
-      { headers: headers }
-    );
+    axios
+      .post(
+        "/users/createTodo",
+        {
+          id: "123",
+          title: title,
+          description: notes,
+        },
+        { headers: headers }
+      )
+      .then((res) => {
+        dispatch(addTodo({ value: 0 }));
+      });
     setTitle("");
     setNotes("");
   };
 
   return (
-    <div>
-      <h4>New Todo</h4>
+    <div style={{ display: "flex", marginTop: "50px" }}>
+      {/* <div
+        style={{ display: "flex", flexWrap: "wrap", flexDirection: "column" }}
+      >
+        <h4>New Todo</h4>
+      </div> */}
       <Card
         className={classes.root}
         style={{ boxShadow: "0 1px 7px rgb(128,128,128)" }}
       >
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexWrap: "wrap", flexDirection: "row" }}
+          >
             <TextField
               name="title"
               label="Title"
@@ -100,18 +123,14 @@ export const TodoFormComponent: FunctionComponent<Props> = (props) => {
               InputProps={{ classes }}
               onChange={(e) => handleNotesChange(e)}
             />
-            <span
-              style={{
-                float: "right",
-              }}
-            >
+            <div>
               <Fab type="submit" color="primary" arial-label="add">
                 <AddIcon fontSize="large" />
               </Fab>
               {/* <IconButton type="submit">
                 <AddIcon fontSize="large" color="primary" />
               </IconButton> */}
-            </span>
+            </div>
           </form>
         </CardContent>
       </Card>
